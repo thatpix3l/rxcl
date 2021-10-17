@@ -21,7 +21,7 @@ var (
         Use: "xclg",
         Short: "Random xkcd comic link generator",
         Long: `
-This application creates a valid, random XKCD comic link by
+This application creates a valid, random xkcd comic link by
 generating a random number in a range between 1 and the latest comic number,
 or a custom range if provided.`,
         Run: func(cmd *cobra.Command, args []string) {
