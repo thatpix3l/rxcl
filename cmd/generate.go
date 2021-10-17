@@ -14,9 +14,6 @@ import (
 )
 
 var (
-	comicWebUrl string
-    comicImgUrl string
-
     lowBound *int
     highBound *int
     	
@@ -33,8 +30,8 @@ var (
                 highestFlag.Value.Set(strconv.Itoa(getNewestComicNum()))
             }
             
-            comicWebUrl = getComicUrl(*lowBound, *highBound)
-            comicImgUrl = getComicImgUrl(comicWebUrl)
+            comicWebUrl := getComicUrl(*lowBound, *highBound)
+            comicImgUrl := getComicImgUrl(comicWebUrl)
             
             switch comicUrlType := args[0]; comicUrlType{
             case "comic":
@@ -89,15 +86,17 @@ func getComicUrl(min int, max int) string {
 
     // Some math for getting a random number between the low and high bounds
     comicNumStr := strconv.Itoa(rand.Intn(max - min + 1) + min)
-    comicWebUrl = fmt.Sprintf("https://xkcd.com/%s", comicNumStr)
+    comicWebUrl := fmt.Sprintf("https://xkcd.com/%s", comicNumStr)
     
     return comicWebUrl
 
 }
 
-func getComicImgUrl(imgUrl string) string {
+func getComicImgUrl(comicUrl string) string {
+    
+    var imgUrl string
 
-    resp, err := http.Get(comicWebUrl)
+    resp, err := http.Get(comicUrl)
     if(err != nil) { panic(err) }
     defer resp.Body.Close()
 
